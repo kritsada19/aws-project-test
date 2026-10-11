@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AWS Practice Website
 
-## Getting Started
+This is a simple Next.js website built for learning how to deploy an app on AWS.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Docker build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker build -t aws-practice-site .
+docker run -p 3000:3000 aws-practice-site
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## AWS deployment ideas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You can deploy this app to AWS in several ways:
 
-## Deploy on Vercel
+1. EC2
+   - Upload project to GitHub
+   - SSH to EC2 instance
+   - Install Node.js
+   - Run `npm install && npm run build && npm run start`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Elastic Beanstalk
+   - Zip project
+   - Create environment in Elastic Beanstalk
+   - Deploy the app package
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. S3 + CloudFront
+   - Best for static front-end projects
+   - For a Next.js app, usually use EC2 or Amplify for easier setup
+
+4. Amplify Hosting
+   - Connect GitHub repo
+   - Build and deploy automatically
+
+## Good practice for this project
+
+- Use GitHub for source control
+- Keep environment variables in `.env.local`
+- Set up a production build before deploy
+- Add a domain and HTTPS when ready
+- Practice using EC2, IAM, Security Groups, and CloudWatch
+
+## Project structure
+
+- `app/page.tsx` — homepage
+- `app/globals.css` — styling
+- `Dockerfile` — container setup for deployment
